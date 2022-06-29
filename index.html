@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html class="principal">
+<link href="css/estilos.css" rel="stylesheet" type="text/css" />
+<!-- <script type="text/javascript" src="scripts/scripts.js" />  -->
+
+
+
+
+<head>
+    <title>Juegos de Memoria</title>
+</head>
+
+<body>
+
+    <header>Bienvenido al juego de memoria</header>
+    <br>
+    <nav>
+        <div id="usuarioConcursante">Usuario : </div>
+        <div id="erroresConcursante">Errores : </div>
+        <div id="tiempoTotalConcursante">Tiempo total : </div>
+    </nav>
+<br>
+
+    <div class="grid">
+        <div>
+            <button class="boton" id="auto1" onClick="mostrarImagen(this.id)"> 1 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto2" onClick="mostrarImagen(this.id)"> 2 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto3" onClick="mostrarImagen(this.id)"> 3 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto4" onClick="mostrarImagen(this.id)"> 4 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto5" onClick="mostrarImagen(this.id)"> 5 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto6" onClick="mostrarImagen(this.id)"> 6 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto7" onClick="mostrarImagen(this.id)"> 7 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto8" onClick="mostrarImagen(this.id)"> 8 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto9" onClick="mostrarImagen(this.id)"> 9 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto10" onClick="mostrarImagen(this.id)"> 10 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto11" onClick="mostrarImagen(this.id)"> 11 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto12" onClick="mostrarImagen(this.id)"> 12 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto13" onClick="mostrarImagen(this.id)"> 13 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto14" onClick="mostrarImagen(this.id)"> 14 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto15" onClick="mostrarImagen(this.id)"> 15 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto16" onClick="mostrarImagen(this.id)"> 16 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto17" onClick="mostrarImagen(this.id)"> 17 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto18" onClick="mostrarImagen(this.id)"> 18 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto19" onClick="mostrarImagen(this.id)"> 19 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto20" onClick="mostrarImagen(this.id)"> 20 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto21" onClick="mostrarImagen(this.id)"> 21 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto22" onClick="mostrarImagen(this.id)"> 22 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto23" onClick="mostrarImagen(this.id)"> 23 </button>
+        </div>
+        <div>
+            <button class="boton" id="auto24" onClick="mostrarImagen(this.id)"> 24 </button>
+        </div>
+    </div>
+
+
+    <div class="modal-container" id="modal_container" style="overflow-y:scroll;">
+        <div class="modal-dialog" id="modal-interno" style="overflow-y:scroll;">
+            <div class="modal-content" style="overflow-y:scroll;">
+
+                <table id="grillaTabla">
+                    <caption>Ranking</caption>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Errores</th>
+                            <th>Tiempo</th>
+
+                        </tr>
+
+                    </thead>
+                    
+                    <tbody>
+
+                    </tbody>
+                    <tfoot>
+                                              
+                    </tfoot>
+
+                </table>
+
+
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+</body>
+
+
+<script>
+
+    let arregloImagen = [];
+    let totalImagenes = null;
+    let imagenesMatch = 0;
+    let conteoErrores = 0;
+    let cantidadImagenes = 0;
+    let imagenesCompletadas = 0;
+    let usuarioIngresado = null;
+
+    var seconds;
+    var localStorageKeyName = 'data';
+
+
+    //const open = document.getElementById('open');
+    const modal_container = document.getElementById('modal_container');
+    //const close = document.getElementById('cierre');
+
+    // open.addEventListener('click', () => {
+    //     modal_container.classList.add('show');
+    // });
+
+    // close.addEventListener('click', () => {
+    //     modal_container.classList.remove('show');
+    // });
+
+    window.onload = function () {
+        usuarioIngresado = prompt("Bienvenido, favor ingresa tu nombre", "");
+        let texto;
+
+        if (usuarioIngresado == null || usuarioIngresado == "") {
+
+            text = "Usuario no ingresado"
+        }
+        else {
+
+            document.getElementById('usuarioConcursante').innerHTML = 'Usuario : ' + usuarioIngresado;
+            localStorage.concursante = usuarioIngresado;
+        }
+
+        start();
+
+        var elemento = document.getElementsByClassName("boton");
+
+
+
+
+        var contador = 1;
+
+
+        for (let i = 1; i <= 24; i++) {
+            if (i <= 12) {
+                var imagenCelda = document.createElement("img");
+                imagenCelda.id = 'auto' + [i];
+                imagenCelda.hidden = true;
+                imagenCelda.src = 'imagenes/autitos/auto' + [i] + '.PNG';
+                imagenCelda.classList.add('botonImagen');
+
+
+                elemento[i - 1].appendChild(imagenCelda);
+            }
+
+            else {
+                var imagenCelda = document.createElement("img");
+
+                imagenCelda.hidden = true;
+                imagenCelda.src = 'imagenes/autitos/auto' + [i - 12] + '.PNG';
+                imagenCelda.classList.add('botonImagen');
+                elemento[i - 1].appendChild(imagenCelda);
+            }
+        }
+    };
+
+
+    function cerrarVentana() {
+        const modal_container = document.getElementById('modal_container');
+        const close = document.getElementById('close');
+        modal_container.classList.remove('show');
+
+
+    }
+
+    function jugarDeNuevo()
+    {
+        location.reload();
+    }
+
+    function mostrarImagen(clicked_id) {
+        let elemento = document.getElementById(clicked_id).getElementsByTagName('img');
+        let botonClickeado = document.getElementsByTagName('button');
+       // console.log("Texto boton" + botonClickeado[0].textContent);
+
+
+      
+      
+        elemento[0].hidden = false;
+
+        //console.log("elemento: " + elemento[0].src);
+
+        var imagenSeleccionada = elemento[0].src;
+        var idImagenSeleccionada = elemento[0].id;
+
+        totalImagenes = agregarImagen(imagenSeleccionada, idImagenSeleccionada);
+
+        if (totalImagenes.length == 4) {
+            // comparo el arreglo    
+
+            console.log("Elemento 1: " + totalImagenes[1])
+            console.log("Elemento 2: " + totalImagenes[3]);
+
+            if (totalImagenes[1] === totalImagenes[3]) {
+                console.log("Son iguales !!!!");
+
+                imagenesMatch = document.getElementsByTagName('img').length;
+                imagenesCompletadas = imagenesCompletadas + 2;
+                cantidadImagenes = imagenesMatch - imagenesCompletadas;
+
+                if (cantidadImagenes == 0) {
+
+                    end();
+
+
+                    mostrarMensaje();
+
+                    // aqui guardo los datos para ranking
+
+                    guardarData();
+
+                    mostrarRanking();
+
+                }
+
+                arregloImagen = [];
+                totalImagenes = null;
+            }
+            else {
+
+                console.log("No son iguales !!!");
+                conteoErrores++;
+
+                setTimeout(setAviso, 1000);
+            }
+        }
+    }
+
+    function mostrarRanking() {
+        const modal = document.getElementById('modal_container');
+        
+        modal.classList.add('show');
+     
+    }
+
+
+
+    function setAviso() {
+        alert("Elige otra imagen...");
+        const elemento1 = document.getElementById(totalImagenes[0]).getElementsByTagName('img')[0].hidden = true;
+        const elemento2 = document.getElementById(totalImagenes[2]).getElementsByTagName('img')[0].hidden = true;
+
+      
+       
+
+
+        // elemento1[0].hidden = true;
+        // elemento2[0].hidden = true;
+
+        
+        arregloImagen = [];
+        totalImagenes = null;
+
+        document.getElementById('erroresConcursante').innerHTML = 'Errores : ' + conteoErrores;
+    }
+
+
+    function agregarImagen(imagenSeleccionada, idImagenSeleccionada) {
+
+        if (arregloImagen.length < 4) {
+
+            arregloImagen.push(idImagenSeleccionada, imagenSeleccionada);
+
+            console.log("ArregloImagenActual:" + arregloImagen);
+
+        }
+
+        return arregloImagen;
+
+    }
+
+    var startTime, endTime;
+
+    function start() {
+        startTime = performance.now();
+    };
+
+    function end() {
+        endTime = performance.now();
+        var timeDiff = endTime - startTime; //in ms 
+        // strip the ms 
+        timeDiff /= 1000;
+
+
+
+
+        // get seconds 
+        seconds = Math.round(timeDiff);
+        console.log(seconds + " seconds");
+
+
+        document.getElementById('tiempoTotalConcursante').innerHTML = 'Tiempo total :' + seconds + " segundos";
+
+    }
+
+
+    function guardarData() {
+        var nombre = usuarioIngresado //document.getElementById('usuarioConcursante'),
+        errores = conteoErrores,
+            tiempo = seconds;
+
+
+        console.log("nombre : " + usuarioIngresado + "errores: " + conteoErrores + "tiempo: " + seconds);
+
+        // Validar
+        //  if(usuarioIngresado.length  === 0 || !parseInt(conteoErrores.value) || !parseInt(seconds.value)) return;
+
+        var usuarioAGuardar = {
+            nombre: usuarioIngresado,
+            errores: conteoErrores,
+            tiempo: seconds
+        }
+
+        agregarObjetoALocalStorage(usuarioAGuardar);
+
+    }
+
+
+    function mostrarMensaje() {
+        const mensajeFinal = document.getElementById('modal_container')
+        // mensajeFinal.addEventListener('click', () =>
+        mensajeFinal.classList.add('show');
+        // );
+
+
+    }
+
+    function agregarObjetoALocalStorage(obj) {
+        var usuarios = [],
+            dataInLocalStorage = localStorage.getItem(localStorageKeyName);
+
+
+
+        if (dataInLocalStorage !== null) {
+            usuarios = JSON.parse(dataInLocalStorage);
+        }
+
+        usuarios.push(obj);
+
+        localStorage.setItem(localStorageKeyName, JSON.stringify(usuarios));
+
+
+        cargarDesdeLocalStorage();
+    }
+
+    function cargarDesdeLocalStorage() {
+
+        var usuarios = [],
+            dataInLocalStorage = localStorage.getItem(localStorageKeyName),
+            header = document.querySelector('#grillatabla thead'),
+            gridBody = document.querySelector('#grillaTabla tbody'),
+            footer = document.querySelector('#grillaTabla tfoot')
+
+        if (dataInLocalStorage !== null) {
+            usuarios = JSON.parse(dataInLocalStorage);
+        }
+
+        gridBody.innerHTML = '';
+
+
+
+        usuarios.forEach(function (x, i) {
+            var tr = document.createElement('tr'),
+                tdNombre = document.createElement('td'),
+                tdErrores = document.createElement('td'),
+                tdTiempo = document.createElement('td');
+
+            tdNombre.innerHTML = x.nombre;
+            tdErrores.innerHTML = x.errores;
+            tdTiempo.innerHTML = x.tiempo;
+
+            tr.appendChild(tdNombre);
+            tr.appendChild(tdErrores);
+            tr.appendChild(tdTiempo);
+
+            gridBody.appendChild(tr);
+
+
+        });
+
+        var tr = document.createElement('tr');
+        var td = document.createElement('td');
+        td.setAttribute("colspan", "2");
+         var btn = document.createElement('div');
+        
+         btn.setAttribute("id", "cierre");
+         btn.setAttribute("class", "cierreVentanaAviso");         
+         btn.textContent = "Cerrar ventana";
+         btn.setAttribute("onclick", "cerrarVentana();");
+
+
+         var btn2 = document.createElement('div');
+        
+         btn2.setAttribute("id", "jugarDeNuevo");
+         btn2.setAttribute("class", "cierreVentanaAviso");         
+         btn2.textContent = "Jugar de nuevo";
+         btn2.setAttribute("onclick", "jugarDeNuevo();");ju
+         
+         
+
+        // td.appendChild(btn);
+        // td.appendChild(td);
+
+        footer.appendChild(btn);
+        footer.appendChild(btn2);
+
+
+
+
+
+
+        // <button id="close">Cerrar</button>
+
+    }
+
+
+    // function cerrarModal() {
+    //     document.getElementById('modal_container').innerHTML = '';
+    //     window.close();
+
+    //     location.reload();
+
+
+
+    // }
+
+
+
+</script>
+
+</html>
+
+
+
