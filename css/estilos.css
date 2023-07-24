@@ -379,5 +379,51 @@ nav{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 }
+
+@media(max-width:650px){
+  /* .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 0.5em;
+  } */
+  
+  .grid > * {
+    background-color: darkgray;
+    color: white;
+    padding: 2em;
+    border-radius: 0.5em;
+    width: 100px;
+    height: 70px;
+  }
+
+  button{
+    width: 80px;
+    height: 50px;
+   
+    top: 50%;
+    left: 50%;
+    line-height: 50px;
+    font-size: 20px;
+    text-align: center
+    /* transform: translate(-50%, -50%);
+    width: 160px;
+    height: 100px;
+    line-height: 50px;
+    font-size: 20px;
+    text-align: center;
+    font-family: sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: #ccc;
+  
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s; */
+  }
+
+
+
+}
   
   
